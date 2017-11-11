@@ -20,10 +20,8 @@ function makeGrid(gridHeight, gridWidth) {
     
     // build the grid (added element id's are not necessary)
     while (h < gridHeight) {
-        let element = h;
         table.append('<tr id=tr_' + h + '>');
         for (let w = 0; w < gridWidth; w++) {
-            const element = w;
             $('<td id=td_' + h + '_' + w + '>').appendTo('#tr_' + h);
         }
         h++ 
