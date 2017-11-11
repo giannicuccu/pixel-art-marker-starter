@@ -14,9 +14,9 @@ $('input[type=submit]').click(function (e) {
 
 function makeGrid(gridHeight, gridWidth) {
     // Your code goes here!
+    // TODO: limit table size
     const table = $('#pixel_canvas').empty();
     let h = 0;
-    let mouseDownOnCanvas = false;
     
     // build the grid (added element id's are not necessary)
     while (h < gridHeight) {
@@ -29,32 +29,14 @@ function makeGrid(gridHeight, gridWidth) {
         h++ 
     }
 
-    // mouse events listeners to enable painting while user move the mouse with left button clicked 
-    // TODO: what if mouse leave the table and reenter while clicked ???
-    table.mousedown(function () {
-        mouseDownOnCanvas = true ;
-    });
-
-    table.mouseup(function () {
-        mouseDownOnCanvas = false ;
-    });
-
-    table.mouseleave(function () {
-        mouseDownOnCanvas = false ;
-    });
-
-    //  mouse events listeners to paint the cell
+    //  mouse events listener to paint the cell
     $('#pixel_canvas td').each(function () {
         // paint <td> on click
         $(this).mousedown(function (e) {
             e.preventDefault();
             $(this).css('background-color', $('#colorPicker').val());
         });
-        //paint <td> on mouseenter if mouse button is clicked
-        $(this).mouseenter(function () {
-            if (mouseDownOnCanvas){
-                $(this).css('background-color', $('#colorPicker').val());
-            }
-        })
+        //TODO: paint on drag while user move the mouse inside the table with left button clicked
+      
     })
 }
