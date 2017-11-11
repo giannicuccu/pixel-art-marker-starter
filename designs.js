@@ -14,11 +14,11 @@ $("input[type=submit]").click(function (e) {
 
 function makeGrid(gridHeight, gridWidth) {
     // Your code goes here!
-    var table = $("#pixel_canvas");
+    var table = $("#pixel_canvas").empty();
     var h = 0;
-    var mouseDown = false;
-    table.empty();
-
+    var mouseDownOnCanvas = false;
+    
+    // build the grid (element id's are not necessary)
     while (h < gridHeight) {
         let element = h;
         table.append("<tr id=tr_" + h + ">");
@@ -26,26 +26,35 @@ function makeGrid(gridHeight, gridWidth) {
             const element = w;
             $("<td id=td_" + h + "_" + w + ">").appendTo("#tr_" + h);
         }
-        h++
+        h++ 
     }
 
+    // mouse events listeners to enable drag painting
+    // TODO what if mouse leave and reenter while clicked ???
     table.mousedown(function () {
-        mouseDown = true
+        mouseDownOnCanvas = true ;
     });
 
     table.mouseup(function () {
-        mouseDown = false
+        mouseDownOnCanvas = false ;
     });
 
+    table.mouseleave(function () {
+        mouseDownOnCanvas = false ;
+    });
 
+    //  mouse events listeners to paint the cell
     $("#pixel_canvas td").each(function () {
+        // paint <td> on click
         $(this).mousedown(function (e) {
             e.preventDefault();
-            $(this).css("background-color", $("#colorPicker").val())
+            $(this).css("background-color", $("#colorPicker").val());
         });
+        //paint <td> on mouseenter if mouse button is clicked
         $(this).mouseenter(function () {
-            if (mouseDown)
-                $(this).css("background-color", $("#colorPicker").val())
+            if (mouseDownOnCanvas){
+                $(this).css("background-color", $("#colorPicker").val());
+            }
         })
     })
 }
