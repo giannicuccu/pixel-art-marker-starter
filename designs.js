@@ -16,15 +16,17 @@ $("input[type=submit]").click(function(e){
 function makeGrid(gridHeight, gridWidth) {
     // Your code goes here!
     var table = $("#pixel_canvas");
+    var h = 0;
     table.empty();
-    
-    for (let h = 0; h < gridHeight; h++) {
-      const element = h;
+
+    while (h < gridHeight) {
+      let element = h;
       table.append("<tr id=tr_"+h+">");
      for (let w = 0; w < gridWidth; w++) {
          const element = w;
          $("<td id=td_"+h+"_"+w+">").appendTo("#tr_"+h);
-        }     
+        } 
+        h++    
     }
 
     $("#pixel_canvas td").each(function(){
