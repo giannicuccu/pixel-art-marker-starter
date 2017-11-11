@@ -9,37 +9,30 @@ var gridHeight = $("#input_height");
 
 $("input[type=submit]").click(function(e){
     e.preventDefault();
-    makeGrid(color.val(), gridHeight.val(), gridWidth.val());
+    makeGrid(gridHeight.val(), gridWidth.val());
 })
 
 
-function makeGrid(color, gridHeight, gridWidth) {
+function makeGrid(gridHeight, gridWidth) {
+    // Your code goes here!
     var table = $("#pixel_canvas");
-    var cells ;
-    var color = color;
     table.empty();
+    
     for (let h = 0; h < gridHeight; h++) {
       const element = h;
       table.append("<tr id=tr_"+h+">");
      for (let w = 0; w < gridWidth; w++) {
          const element = w;
          $("<td id=td_"+h+"_"+w+">").appendTo("#tr_"+h);
-         console.log(w);
-         //table.append("<td>");
-     }
-     //table.append("</tr>");
-  }
-// Your code goes hwere!
-
-cells = $("#pixel_canvas td").each(
-    function(){
-        $(this).click(function(){
-            console.log("click on"+$(this).attr("id"));
-            console.log(color);
-            $(this).css("background-color", $("#colorPicker").val())
-        })
+        }     
     }
-)
+
+    $("#pixel_canvas td").each(function(){
+            $(this).click(function(){
+                $(this).css("background-color", $("#colorPicker").val())
+            })
+        }
+    )
 
 }
 
