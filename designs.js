@@ -1,5 +1,3 @@
-
-
 // When size is submitted by the user, call makeGrid()
 $('input[type=submit]').click(function (e) {
     e.preventDefault();
@@ -7,25 +5,21 @@ $('input[type=submit]').click(function (e) {
 })
 
 
-function makeGrid() {      
-    grid.insertGrid(grid.buildGridMarkup( grid.fetchHeigth(), grid.fetchWidth()));
+function makeGrid() {
+    grid.insertGrid(grid.buildGridMarkup(inputForm.getTableSize()));
     grid.setHandlers();
 }
 
+
 // grid object
 var grid = {
-    cellColor: "black",
-    gridWidth: 0,
-    gridHeight: 0,
-    gridMarkup: "",
-
-
-    buildGridMarkup: function (gridHeight, gridWidth) {
+    
+    buildGridMarkup: function (tableSize) {
         let gridMarkup = "";
-        let h =0;
-        while (h < gridHeight) {
+        let h = 0;
+        while (h < tableSize.heigth) {
             gridMarkup += '<tr id=tr_' + h + '>';
-            for (let w = 0; w < gridWidth; w++) {
+            for (let w = 0; w < tableSize.width; w++) {
                 gridMarkup += '<td id=td_' + h + '_' + w + '></td>';
             }
             gridMarkup += '</tr>'
@@ -37,27 +31,8 @@ var grid = {
     },
 
     insertGrid: function (gridMarkup) {
-        $('#pixel_canvas').empty().html(gridMarkup); 
-        
-    },
+        $('#pixel_canvas').empty().html(gridMarkup);
 
-    fetchColor: function () {
-        color = $('#colorPicker').val();
-        return color;
-    },
-
-    fetchWidth: function () {
-        gridWidth = $('#input_width').val();
-        return gridWidth;
-    },
-
-    fetchHeigth: function () {
-        gridHeight = $('#input_height').val();
-        return gridHeight;
-    },
-
-    resetGridMarkup: function () {
-        table = $('#pixel_canvas').empty();
     },
 
     setHandlers: function () {
@@ -76,7 +51,18 @@ var grid = {
 
 var colorPicker = {
     getColor: function () {
-        color = $('#colorPicker').val();
+        const color = $('#colorPicker').val();
         return color;
+    }
+}
+
+
+var inputForm = {
+    getTableSize: function () {
+        const tableSize = {
+            width:$('#input_width').val(),
+            heigth:$('#input_height').val()
+        }
+        return tableSize;
     }
 }
